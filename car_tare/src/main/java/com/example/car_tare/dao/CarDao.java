@@ -22,4 +22,21 @@ public class CarDao {
         }
         return list;
     }
+
+    public void delCarTareById(String carId) {
+        jdbcTemplate.update(" delete from car_tare where plateNumber = '" + carId + "'");
+    }
+
+    public void addCarTare(String carId, String weight) {
+        jdbcTemplate.update(" insert into car_tare (plateNumber,tare) values ('"+carId+"',"+weight+")");
+    }
+
+    public Double finCarTareById(String carId) throws Exception{
+        Map<String, Object> stringObjectMap = jdbcTemplate.queryForMap(" select tare from car_tare where plateNumber = '" + carId + "'");
+        System.out.println(stringObjectMap);
+        if(CollectionUtils.isEmpty(stringObjectMap)) {
+            return null;
+        }
+        return Double.valueOf(stringObjectMap.get("tare").toString());
+    }
 }
