@@ -165,4 +165,12 @@ public class CarService {
             e.printStackTrace();
         }
     }
+
+    public LayuiResp delCarTare(String carId) {
+        carDao.delCarTareById(carId);
+        LayuiResp layuiResp = new LayuiResp();
+        layuiResp.setCode(0);
+        layuiResp.setMsg("成功");
+        return layuiResp;
+    }
 }

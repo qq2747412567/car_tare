@@ -7,6 +7,7 @@
 </head>
 <body>
 <div>
+    <button type="button" class="layui-btn" onclick="changPage()" style="position: absolute;right: 10px;top: 10px">页面切换</button>
     <div style="width: 1000px;margin: auto;margin-top: 5%;">
         <form class="layui-form" action="">
             <div class="layui-form-item">
@@ -20,7 +21,8 @@
                 <label class="layui-form-label">输入毛重</label>
                 <div class="layui-input-block">
                     <input type="text" name="mWeight" lay-verify="mWeight" autocomplete="off" placeholder="请输入毛重"
-                           class="layui-input">
+                           class="layui-input" style="width: calc(100% - 50px);display: inline-block">
+                    <span>/kg</span>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -49,10 +51,6 @@
         var form = layui.form
         //自定义验证规则
         form.verify({
-            carId: [
-                /(^[\u4E00-\u9FA5]{1}[A-Z0-9]{6}$)|(^[A-Z]{2}[A-Z0-9]{2}[A-Z0-9\u4E00-\u9FA5]{1}[A-Z0-9]{4}$)|(^[\u4E00-\u9FA5]{1}[A-Z0-9]{5}[挂学警军港澳]{1}$)|(^[A-Z]{2}[0-9]{5}$)|(^(08|38){1}[A-Z0-9]{4}[A-Z0-9挂学警军港澳]{1}$)/
-                ,'车牌号不符合规则，请修改后重试'
-            ],
             mWeight: [
                 /^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/
                 ,'毛重只能输入数字，且最多只有保留两位小数'
@@ -76,9 +74,9 @@
                             , cellMinWidth: 80 //全局定义常规单元格的最小宽度，layui 2.2.1 新增
                             , cols: [[
                                 {field: 'carId', title: '车牌号'}
-                                , {field: 'tare', title: '皮重'}
-                                , {field: 'mWeight', title: '毛重'}
-                                , {field: 'jWeight', title: '净重'}
+                                , {field: 'tare', title: '皮重（/kg）'}
+                                , {field: 'mWeight', title: '毛重（/kg）'}
+                                , {field: 'jWeight', title: '净重（/kg）'}
                                 , {field: 'liao', title: '料'}
                                 , {field: 'createTime', title: '创建时间'}
                             ]],
@@ -93,6 +91,10 @@
             return false;
         });
     });
+
+    function changPage() {
+        window.location.href="oper";
+    }
 </script>
 </html>
 

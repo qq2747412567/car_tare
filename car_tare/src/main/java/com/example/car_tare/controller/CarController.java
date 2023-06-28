@@ -74,5 +74,18 @@ public class CarController {
             log.error("e", e);
         }
     }
+
+    @RequestMapping("/delCarTare")
+    public void delCarTare(@RequestParam(value = "carId") String carId, HttpServletResponse response) {
+        LayuiResp result = carService.delCarTare(carId);
+        PrintWriter pw = null;
+        response.setCharacterEncoding("UTF-8");
+        try {
+            pw = response.getWriter();
+            pw.write(JSONObject.toJSONString(result));
+        } catch (Exception e) {
+            log.error("e", e);
+        }
+    }
 }
 

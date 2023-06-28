@@ -9,14 +9,14 @@
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
 </head>
 <body>
-
+<button type="button" class="layui-btn" onclick="changPage()" style="position: absolute;right: 10px;top: 10px">页面切换</button>
 <div  style="width: 1000px;margin: auto;margin-top: 5%;">
     <h1 style="text-align: center;font-weight: bold;">车辆信息表</h1>
     <div style="text-align: right">
         <div class="layui-btn-group">
             <button type="button" class="layui-btn" onclick="add()">增加</button>
             <button type="button" class="layui-btn" onclick="edit()">编辑</button>
-<!--            <button type="button" class="layui-btn">删除</button>-->
+            <button type="button" class="layui-btn" onclick="del()">删除</button>
         </div>
     </div>
     <table class="layui-hide" id="test"></table>
@@ -37,7 +37,7 @@
                 {type:'radio'}
                 ,{field: 'id', title: '序号'}
                 ,{field: 'plateNumber', title: '车牌号'}
-                , {field: 'tare', title: '皮重'}
+                , {field: 'tare', title: '皮重（/kg）'}
             ]]
         });
     });
@@ -74,6 +74,34 @@
             }
         });
 
+    }
+
+    function del() {
+        let checkStatus = table.checkStatus('test').data[0];
+        if(!checkStatus) {
+            layer.msg('请先选择一条数据！');
+            return
+        }
+        layer.confirm('真的删除行么', function(index){
+        $.ajax({
+            url: "delCarTare",
+            type: "post",
+            data: {
+                carId:checkStatus.plateNumber
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if(data.code === 0) {
+                    layer.msg('删除成功！');
+                    window.location.reload();
+                }
+            }
+        })
+        });
+    }
+    function changPage() {
+        window.location.href="search";
     }
 </script>
 </body>
